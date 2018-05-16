@@ -6,21 +6,11 @@ public class NumberWizards : MonoBehaviour {
 
     private int max = 1000;
     private int min = 1;
-    private int guess = 500;
+    private int guess;
 
     // Use this for initialization
     void Start () {
-        print("Welcome to Number Wizard");
-        print("Pick a number in your head, but don't tell me!");
-
-        print("The highest number you can pick is " + max);
-        print("The lowest number you can pick is " + min);
-
-        print("Is the number higher or lower than " + guess + "?");
-        print("Up arrow for higher, down arrow for lower, return for equal");
-
-        // Add one to max so we don't get stuck at 999 if the number is 1000.
-        max = max + 1;
+        StartGame();
 	}
 	
 	// Update is called once per frame
@@ -28,17 +18,36 @@ public class NumberWizards : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             //print("Up arrow pressed");
             min = guess;
-            guess = (max + min) / 2;
-            print("Is the number higher or lower than " + guess + "?");
+            UpdateGuess();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow)) {
             //print("Down arrow pressed");
             max = guess;
-            guess = (max + min) / 2;
-            print("Is the number higher or lower than " + guess + "?");
+            UpdateGuess();
         }
         else if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return)) {
             print("I have won!");
         }
+    }
+
+    private void StartGame()
+    {
+        print("Welcome to Number Wizard");
+        print("Pick a number in your head, but don't tell me!");
+
+        print("The highest number you can pick is " + max);
+        print("The lowest number you can pick is " + min);
+
+        UpdateGuess();
+
+        // Add one to max so we don't get stuck at 999 if the number is 1000.
+        max = max + 1;
+    }
+
+    private void UpdateGuess()
+    {
+        guess = (max + min) / 2;
+        print("Is the number higher or lower than " + guess + "?");
+        print("Up arrow for higher, down arrow for lower, return for equal");
     }
 }
